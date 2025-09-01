@@ -1,35 +1,42 @@
+import grid.Grid;
+
 public class Main {
     public static void main(String[] args) {
-        int[][] grid = {
-            {1, 1, 0, 0, 0},
-            {1, 1, 0, 1, 1},
-            {0, 0, 0, 1, 1},
-            {0, 1, 1, 0, 0}
-        };
-        int startRow = 0, startCol = 0;
-        int newColor = 2;
+        
+        // Colocando passo a passo para melhor entendimento
+        
+        // Gerando grid para trabalhar
+        Grid grid = gerarGrid();
 
-        floodFill(grid, startRow, startCol, grid[startRow][startCol], newColor);
+        // TODO implementar metodo para coletar ou gerar o ponto de inicio
+        int[] coordenadas = {0,0};
 
-        for (int[] row : grid) {
-            for (int cell : row) {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
+        while (!grid.isFull()) {
+
+            pintarParticao(grid, coordenadas, coordenadas);
+            
         }
+
     }
 
-    public static void floodFill(int[][] grid, int row, int col, int targetColor, int newColor) {
-        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length)
-            return;
-        if (grid[row][col] != targetColor || grid[row][col] == newColor)
-            return;
+    private static Grid gerarGrid(){
 
-        grid[row][col] = newColor;
+        // TODO implementar gerador de grid da imagem
+        return null;
 
-        floodFill(grid, row + 1, col, targetColor, newColor);
-        floodFill(grid, row - 1, col, targetColor, newColor);
-        floodFill(grid, row, col + 1, targetColor, newColor);
-        floodFill(grid, row, col - 1, targetColor, newColor);
     }
+
+    private static void pintarParticao(Grid grid, int[] coordenadas, Object novoValor){
+
+        // TODO implementar flood fill
+
+    }
+
+    private static int[] buscaNovasCoordenadas(Grid grid, int[] coordenadas){
+
+        // TODO implementar busca de novas coordenadas
+        return null;
+
+    }
+    
 }
