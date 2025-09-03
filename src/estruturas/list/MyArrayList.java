@@ -1,4 +1,4 @@
-package estruturas.list;
+package list;
 
 public class MyArrayList<T> {
     
