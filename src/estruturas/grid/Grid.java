@@ -2,7 +2,6 @@ package grid;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import coordenadas.Coordenada;
@@ -94,18 +93,15 @@ public class Grid {
     }
     
     // Cria valor RGB a partir de componentes vermelho, verde e azul
-    public static int criarRGB(int r, int g, int b) {
+    private static int criarRGB(int r, int g, int b) {
         return (0xFF << 24) | (r << 16) | (g << 8) | b;
     }
-    
-    // Cores predefinidas para uso no flood fill
-    public static class Cores {
-        public static final int BRANCO = criarRGB(255, 255, 255);
-        public static final int PRETO = criarRGB(0, 0, 0);
-        public static final int VERMELHO = criarRGB(255, 0, 0);
-        public static final int VERDE = criarRGB(0, 255, 0);
-        public static final int AZUL = criarRGB(0, 0, 255);
-        public static final int AMARELO = criarRGB(255, 255, 0);
+
+    public static int getCor(CoresEnum cor){
+
+        // Cria a cor baseada no enum de cores já predefinidas
+        return criarRGB(cor.getR(), cor.getG(), cor.getB());
+
     }
     
     // Representação textual do grid
