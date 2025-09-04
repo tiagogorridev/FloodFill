@@ -17,7 +17,7 @@ public class Main {
         // TODO implementar metodo para coletar ou gerar o ponto de inicio
         int[] coordenadas = {0,0};
 
-        while (!grid.isFull()) {
+        while (!grid.estaPintado()) {
 
             pintarParticao(grid, coordenadas, coordenadas);
             
