@@ -14,7 +14,7 @@ public class Fila {
         return front == null;
     }
 
-    public void insereNaFila(int item) {
+    public void insereNaFila(Object item) {
 
         // Cria um novo node
         QueueNode newNode = new QueueNode(item);
@@ -34,7 +34,7 @@ public class Fila {
 
     }
 
-    public int removeElementoDaFila() {
+    public Object removeElementoDaFila() {
         
         if (isEmpty()) {
 
@@ -43,7 +43,7 @@ public class Fila {
         
         }
 
-        int item = front.getValor(); // pega o valor pra retornar depois, enquanto isso, tira o node da fila
+        Object item = front.getValor(); // pega o valor pra retornar depois, enquanto isso, tira o node da fila
 
         front = front.getNode(); // o front vira o próprio node
 
@@ -58,7 +58,7 @@ public class Fila {
 
     }
 
-    public int pegaValorSemRemover() {
+    public Object pegaValorSemRemover() {
 
         if (isEmpty()) {
 
