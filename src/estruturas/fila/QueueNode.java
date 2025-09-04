@@ -2,24 +2,24 @@ package fila;
 
 public class QueueNode {
 
-    private int valor;
+    private Object valor;
     private QueueNode node;
 
-    public QueueNode(int valor) {
+    public QueueNode(Object valor) {
         this.valor = valor;
         this.node = null;
     }
 
-    public QueueNode(int valor, QueueNode node) {
+    public QueueNode(Object valor, QueueNode node) {
         this.valor = valor;
         this.node = node;
     }
 
-    public int getValor() {
+    public Object getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(Object valor) {
         this.valor = valor;
     }
 
