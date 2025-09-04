@@ -46,16 +46,4 @@ public class Main {
         System.out.println("\n=== TESTE FINALIZADO ===");
         System.out.println("Compare os resultados!");
     }
-    
-    private static Grid gerarGrid() {
-        try {
-            Grid novoGrid = new Grid(IMAGE_PATH);
-            System.out.println("Grid gerado com sucesso: " + 
-                             novoGrid.getLargura() + "x" + novoGrid.getAltura());
-            return novoGrid;
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar grid: " + e.getMessage());
-            throw new RuntimeException("Falha na criação do grid", e);
-        }
-    }
 }
