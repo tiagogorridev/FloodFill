@@ -100,7 +100,6 @@ public class Grid {
     public static int getCor(CoresEnum cor){
 
         // Cria a cor baseada no enum de cores já predefinidas
-
         return criarRGB(cor.getR(), cor.getG(), cor.getB());
 
     }

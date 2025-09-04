@@ -6,10 +6,8 @@ import exception.GridException;
 import floodfill.FloodFill;
 
 public class Main {
-
     // INSIRA O CAMINHO DA IMAGEM AQUI
     private static final String IMAGE_PATH = "src/assets/image.png";
-
 
     private static final String IMAGE_PATH_PAINTED_LIST = "src/assets/resultado_fila.png";
 
@@ -37,8 +35,8 @@ public class Main {
         System.out.println("Cor do ponto inicial: " + corInicial);
         
         pintarComPilha(grid, floodFill, coordenadas);
-        
-        // Recarrega grid para teste com fila
+
+      // Recarrega grid para teste com fila
         grid = gerarGrid();
         floodFill = new FloodFill(grid);
         
@@ -103,6 +101,29 @@ public class Main {
         
         System.out.println("Imagem pintada com sucesso!");
         
+    }
+
+        // Teste com FILA - pinta de azul  
+        System.out.println("\n--- TESTE COM FILA (AZUL) ---");
+        floodFill.floodFillComFila(pontoInicial, Grid.Cores.AZUL);
+        grid.salvarImagem("resultado_fila.png");
+        System.out.println("Imagem salva: resultado_fila.png");
+        ImageUtil.showImage("resultado_fila.png");
+        
+        System.out.println("\n=== TESTE FINALIZADO ===");
+        System.out.println("Compare os resultados!");
+    }
+    
+    private static Grid gerarGrid() {
+        try {
+            Grid novoGrid = new Grid(IMAGE_PATH);
+            System.out.println("Grid gerado com sucesso: " + 
+                             novoGrid.getLargura() + "x" + novoGrid.getAltura());
+            return novoGrid;
+        } catch (Exception e) {
+            System.err.println("Erro ao gerar grid: " + e.getMessage());
+            throw new RuntimeException("Falha na criação do grid", e);
+        }
     }
 
 }
