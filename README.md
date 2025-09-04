@@ -16,9 +16,14 @@ A partir da escolha de um ponto inicial, preenche a imagem (que deve estar em pr
 ```markdown
 ### Checklist
 
-- [ ] Definir estruturas que serão usadas (/estruturas)
-- [ ] Implementar biblioteca para exibição gráfica (/estruturas/graph)
-- [ ] Converter imagem para grid (/estruturas/grid/Grid.java)
+- [X] Definir estruturas que serão usadas (/estruturas)
+- [X] Implementar biblioteca para exibição gráfica (/estruturas/graph)
+- [X] Converter imagem para grid (/estruturas/grid/Grid.java)
 - [ ] Implementar algoritmo de busca de novas coordenadas (Main.java)
 - [ ] Implementar algoritmo de Pintura de grid (Main.java)
+
+### Coordenadas úteis:
+Bolsa: {0, 0}
+Bota: {0, 0}
+Cabeça: {0, 0}
 ```
