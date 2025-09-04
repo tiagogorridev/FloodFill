@@ -38,7 +38,7 @@ public class Main {
         
         // Teste com FILA - pinta de azul  
         System.out.println("\n--- TESTE COM FILA (AZUL) ---");
-        floodFill.floodFillComFila(pontoInicial, Grid.Cores.AZUL);
+        floodFill.floodFillComQueue(pontoInicial, Grid.Cores.AZUL);
         grid.salvarImagem("resultado_fila.png");
         System.out.println("Imagem salva: resultado_fila.png");
         ImageUtil.showImage("resultado_fila.png");
