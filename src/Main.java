@@ -1,10 +1,16 @@
+import graph.ImageUtil;
 import grid.Grid;
 
 public class Main {
+
+    // INSIRA O CAMINHO DA IMAGEM AQUI
+    private static final String IMAGE_PATH = "seu_caminho_aqui/image.png";
+
     public static void main(String[] args) {
         
         // Colocando passo a passo para melhor entendimento
         
+        ImageUtil.showImage(IMAGE_PATH);
         // Gerando grid para trabalhar
         Grid grid = gerarGrid();
 
