@@ -1,6 +1,6 @@
 package coordenadas;
 
-/* Classe para representar uma coordenada no grid */
+// Classe para representar uma coordenada no grid
 public class Coordenada {
     
     private int x;
@@ -27,12 +27,12 @@ public class Coordenada {
         this.y = y;
     }
     
-    /* Verifica se a coordenada é valida dentro dos limites do grid */
+    // Verifica se a coordenada é valida dentro dos limites do grid
     public boolean isValida(int largura, int altura) {
         return x >= 0 && x < largura && y >= 0 && y < altura;
     }
     
-    /* Retorna os 4 vizinhos laterais desta coordenada */
+    // Retorna os 4 vizinhos laterais desta coordenada
     public Coordenada[] getVizinhos() {
         return new Coordenada[] {
             new Coordenada(x, y - 1),
@@ -42,7 +42,7 @@ public class Coordenada {
         };
     }
     
-    /* Comparação entre coordenadas */
+    // Comparação entre coordenadas
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
