@@ -21,6 +21,6 @@ A partir da escolha de um ponto inicial, preenche a imagem (que deve estar em pr
 - [X] Implementar algoritmo de Pintura de grid (Main.java)
 
 ### Coordenadas úteis:
-- Bolsa: {0, 0}
-- Bota: {0, 0}
-- Cabeça: {0, 0}
+Bolsa: {500, 500}
+Bota: {400, 600}
+Cabeça: {300, 100}

@@ -85,4 +85,5 @@ public class Main {
         
         System.out.println("Imagem pintada com sucesso!");
     }
+
 }
