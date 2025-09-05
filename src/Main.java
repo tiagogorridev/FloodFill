@@ -6,7 +6,6 @@ import exception.GridException;
 import floodfill.FloodFill;
 
 public class Main {
-    // INSIRA O CAMINHO DA IMAGEM AQUI
     private static final String IMAGE_PATH = "src/assets/image.png";
     private static final String IMAGE_PATH_PAINTED_LIST = "src/assets/resultado_fila.png";
     private static final String IMAGE_PATH_PAINTED_STACK = "src/assets/resultado_pilha.png";
@@ -24,7 +23,7 @@ public class Main {
         FloodFill floodFill = new FloodFill(grid);
         
         // Coordenadas de início
-        Coordenada coordenadas = new Coordenada(500, 500);
+        Coordenada coordenadas = new Coordenada(400, 600);
         System.out.println("Iniciando pintura na coordenada " + coordenadas);
         
         // Debug: verificar cor do ponto inicial
@@ -59,7 +58,7 @@ public class Main {
         System.out.println();
         System.out.println("Realizando pintura com estrutura de dados Pilha (Vermelho)");
 
-        floodFill.floodFillComPilha(pontoInicial, Grid.getCor(CoresEnum.VERMELHO));
+        floodFill.pintarComPilha(pontoInicial, Grid.getCor(CoresEnum.VERMELHO));
 
         grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
         System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
@@ -75,7 +74,7 @@ public class Main {
         System.out.println();
         System.out.println("Executando a pintura da imagem com estrutura de dados Fila (Azul)");
 
-        floodFill.floodFillComFila(pontoInicial, Grid.getCor(CoresEnum.AZUL));
+        floodFill.pintarComFila(pontoInicial, Grid.getCor(CoresEnum.AZUL));
         
         grid.salvarImagem(IMAGE_PATH_PAINTED_LIST);
         

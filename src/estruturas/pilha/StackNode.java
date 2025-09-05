@@ -11,9 +11,7 @@ public class StackNode {
     }
 
     public StackNode(Object valor){
-
         this.valor = valor;
-
     }
 
     public Object getValor() {

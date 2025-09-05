@@ -1,231 +1,176 @@
 package floodfill;
 import grid.Grid;
 import coordenadas.Coordenada;
-import exception.PintarImagemException;
 import pilha.Pilha;
 import fila.Fila;
-import fila.Queue;
 
 public class FloodFill {
 
-    // Grid contendo a imagem a ser processada
     private Grid grid;
 
-    // Construtor que recebe grid para operações de flood fill
     public FloodFill(Grid grid) {
         this.grid = grid;
     }
 
-    // Flood Fill usando PILHA (abordagem depth-first)
-    public void floodFillComPilha(Coordenada inicial, int novaCor) {
+    // Pintar com pilha
+    public void pintarComPilha(Coordenada pontoInicial, int novaCor) {
+
+        // Validacoes
+        if (!coordenadaEhValida(pontoInicial)) {
+            System.out.println("Coordenada inválida: " + pontoInicial);
+            return;
+        }
         
-        System.out.println("Iniciando pintura com Pilha");
-
-        int corOriginal;
-
-        try {
-            corOriginal = validaInicioImagem(inicial, novaCor);
-        } catch (PintarImagemException e) {
-            System.out.println(e.getMessage());
+        int corOriginal = grid.getPixel(pontoInicial);
+        if (corOriginal == novaCor) {
+            System.out.println("Pixel já tem a cor desejada");
             return;
         }
 
-        // Matriz de visitados para evitar processamento duplicado
-        boolean[][] visitados = new boolean[grid.getLargura()][grid.getAltura()];
+        // Iniciar processo
+        boolean[][] jaVisitou = criarMatrizDeVisitados();
+        Pilha pilhaDeCoordenas = new Pilha();
+        
+        pilhaDeCoordenas.push(pontoInicial);
+        marcarComoVisitado(jaVisitou, pontoInicial);
+        
+        exibirInfoInicio("PILHA", pontoInicial, corOriginal, novaCor);
 
-        Pilha pilha = new Pilha();
-
-        // O algoritmo começa na coordenada inicial, e vai "explorando" a imagem
-        pilha.push(inicial);
-        visitados[inicial.getX()][inicial.getY()] = true;
-
-        System.out.println("Flood Fill com PILHA:");
-        System.out.println("- Coordenada inicial: " + inicial);
-        System.out.println("- Cor original: " + corOriginal);
-        System.out.println("- Nova cor: " + novaCor);
-
-        int pixelsPintados = 0;
-        long startTime = System.currentTimeMillis();
-
-        while (!pilha.isEmpty()) {
-            Coordenada atual = (Coordenada) pilha.pop();
-
-            // Pinta o pixel
-            grid.setPixel(atual, novaCor);
-            pixelsPintados++;
-
-            // Mostra progresso a cada 1000 pixels
-            if (pixelsPintados % 1000 == 0) {
-                System.out.println("Pixels pintados: " + pixelsPintados);
-            }
-
-            // Adiciona os vizinhos válidos na pilha
-            for (Coordenada vizinho : atual.getVizinhos()) {
-                if (grid.isCoordenadasValidas(vizinho) && 
-                    !visitados[vizinho.getX()][vizinho.getY()] &&
-                    grid.getPixel(vizinho) == corOriginal) {
-                    
-                    pilha.push(vizinho);
-                    visitados[vizinho.getX()][vizinho.getY()] = true;
-                }
-            }
+        int totalPixelsPintados = 0;
+        long tempoInicio = System.currentTimeMillis();
+        
+        while (!pilhaDeCoordenas.isEmpty()) {
+            Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
+            
+            pintarPixel(coordenadaAtual, novaCor);
+            totalPixelsPintados++;
+            
+            mostrarProgresso(totalPixelsPintados);
+            
+            adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
         }
-
-        long duration = System.currentTimeMillis() - startTime;
-        System.out.println("Total de pixels pintados com PILHA: " + pixelsPintados);
-        System.out.println("Tempo de execução: " + duration + "ms");
+        
+        exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
     }
 
-    // Flood Fill usando FILA (abordagem breadth-first)
-    public void floodFillComFila(Coordenada inicial, int novaCor) {
-        Integer corOriginal = validaInicioImagem(inicial, novaCor);
+    // Pintar com fila
+    public void pintarComFila(Coordenada pontoInicial, int novaCor) {
 
-        if (corOriginal == null) return;
-
-        // Matriz de visitados para evitar processamento duplicado
-        boolean[][] visitados = new boolean[grid.getLargura()][grid.getAltura()];
-
-        Fila fila = new Fila();
-        fila.insereNaFila(inicial);
-        visitados[inicial.getX()][inicial.getY()] = true;
-
-        System.out.println("Flood Fill com FILA:");
-        System.out.println("- Coordenada inicial: " + inicial);
-        System.out.println("- Cor original: " + corOriginal);
-        System.out.println("- Nova cor: " + novaCor);
-
-        int pixelsPintados = 0;
-        long startTime = System.currentTimeMillis();
-
-        while (!fila.isEmpty()) {
-            Coordenada atual = (Coordenada) fila.removeElementoDaFila();
-
-            // Pinta o pixel
-            grid.setPixel(atual, novaCor);
-            pixelsPintados++;
-
-            // Mostra progresso a cada 1000 pixels
-            if (pixelsPintados % 1000 == 0) {
-                System.out.println("Pixels pintados: " + pixelsPintados);
-            }
-
-            // Adiciona os vizinhos válidos na fila
-            for (Coordenada vizinho : atual.getVizinhos()) {
-                if (grid.isCoordenadasValidas(vizinho) && 
-                    !visitados[vizinho.getX()][vizinho.getY()] &&
-                    grid.getPixel(vizinho) == corOriginal) {
-                    
-                    fila.insereNaFila(vizinho);
-                    visitados[vizinho.getX()][vizinho.getY()] = true;
-                }
-            }
+        if (!coordenadaEhValida(pontoInicial)) {
+            System.out.println("Coordenada inválida: " + pontoInicial);
+            return;
         }
-
-        long duration = System.currentTimeMillis() - startTime;
-        System.out.println("Total de pixels pintados com FILA: " + pixelsPintados);
-        System.out.println("Tempo de execução: " + duration + "ms");
-    }
-
-    public void floodFillComQueue(Coordenada beginning, int newColor) {
-        try {
-            if (!grid.isCoordenadasValidas(beginning)) {
-                throw new Exception("Coordenada inicial inválida: " + beginning);
-            }
-
-            int originalColor = grid.getPixel(beginning);
-            if (originalColor == newColor) {
-                throw new Exception("Cor original igual a cor destino");
-            }
-
-            final int width = grid.getLargura();
-            final int height = grid.getAltura();
-            final int totalPixels = width * height;
-
-            boolean[] visited = new boolean[totalPixels];
-            Queue<Integer> coordsToVisit = new Queue<>(totalPixels);
-
-            int beginningIdx = beginning.getY() * width + beginning.getX();
-            coordsToVisit.push(beginningIdx);
-            visited[beginningIdx] = true;
-            grid.setPixel(beginning, newColor);
-
-            long startTime = System.currentTimeMillis();
-
-            while (!coordsToVisit.isEmpty()) {
-                int currentIdx = coordsToVisit.pop();
-                int currentX = currentIdx % width;
-                int currentY = currentIdx / width;
-
-                if (currentX > 0) {
-                    int leftIdx = currentIdx - 1;
-                    if (!visited[leftIdx]) {
-                        Coordenada leftCoord = new Coordenada(currentX - 1, currentY);
-                        if (grid.getPixel(leftCoord) == originalColor) {
-                            grid.setPixel(leftCoord, newColor);
-                            visited[leftIdx] = true;
-                            coordsToVisit.push(leftIdx);
-                        }
-                    }
-                }
-
-                if (currentX < width - 1) {
-                    int rightIdx = currentIdx + 1;
-                    if (!visited[rightIdx]) {
-                        Coordenada rightCoord = new Coordenada(currentX + 1, currentY);
-                        if (grid.getPixel(rightCoord) == originalColor) {
-                            grid.setPixel(rightCoord, newColor);
-                            visited[rightIdx] = true;
-                            coordsToVisit.push(rightIdx);
-                        }
-                    }
-                }
-
-                if (currentY > 0) {
-                    int upIdx = currentIdx - width;
-                    if (!visited[upIdx]) {
-                        Coordenada upCoord = new Coordenada(currentX, currentY - 1);
-                        if (grid.getPixel(upCoord) == originalColor) {
-                            grid.setPixel(upCoord, newColor);
-                            visited[upIdx] = true;
-                            coordsToVisit.push(upIdx);
-                        }
-                    }
-                }
-
-                if (currentY < height - 1) {
-                    int downIdx = currentIdx + width;
-                    if (!visited[downIdx]) {
-                        Coordenada downCoord = new Coordenada(currentX, currentY + 1);
-                        if (grid.getPixel(downCoord) == originalColor) {
-                            grid.setPixel(downCoord, newColor);
-                            visited[downIdx] = true;
-                            coordsToVisit.push(downIdx);
-                        }
-                    }
-                }
-            }
-
-            System.out.println("Tempo de execução: " + (System.currentTimeMillis() - startTime) + "ms");
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-    }
-
-    private Integer validaInicioImagem(Coordenada coordenadas, int novaCor) {
-        // valida coordenadas iniciais
-        if (!grid.isCoordenadasValidas(coordenadas)) {
-            System.out.println("Coordenada inválida: " + coordenadas);
-            return null;
-        }
-
-        // Se a cor já é a mesma, não precisa pintar
-        int corOriginal = grid.getPixel(coordenadas);
-
+        
+        int corOriginal = grid.getPixel(pontoInicial);
         if (corOriginal == novaCor) {
-            System.out.println("Cor já é a mesma, nada para pintar");
-            return null;
+            System.out.println("Pixel já tem a cor desejada");
+            return;
         }
 
-        return corOriginal;
+        boolean[][] jaVisitou = criarMatrizDeVisitados();
+        Fila filaDeCoordenas = new Fila();
+        
+        filaDeCoordenas.insereNaFila(pontoInicial);
+        marcarComoVisitado(jaVisitou, pontoInicial);
+        
+        exibirInfoInicio("FILA", pontoInicial, corOriginal, novaCor);
+
+        int totalPixelsPintados = 0;
+        long tempoInicio = System.currentTimeMillis();
+        
+        while (!filaDeCoordenas.isEmpty()) {
+            Coordenada coordenadaAtual = (Coordenada) filaDeCoordenas.removeElementoDaFila();
+            
+            pintarPixel(coordenadaAtual, novaCor);
+            totalPixelsPintados++;
+            
+            mostrarProgresso(totalPixelsPintados);
+            
+            adicionarVizinhosNaFila(filaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
+        }
+        
+        exibirResultados("FILA", totalPixelsPintados, tempoInicio);
+    }
+
+    // Metodos auxiliares pilha
+    private void adicionarVizinhosNaPilha(Pilha pilha, boolean[][] jaVisitou, 
+                                         Coordenada coordenadaAtual, int corQueEstamoPintando) {
+        
+        Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
+        
+        for (Coordenada vizinho : vizinhos) {
+            if (deveProcessarVizinho(vizinho, jaVisitou, corQueEstamoPintando)) {
+                pilha.push(vizinho);
+                marcarComoVisitado(jaVisitou, vizinho);
+            }
+        }
+    }
+
+    // Metodos auxiliares fila
+    private void adicionarVizinhosNaFila(Fila fila, boolean[][] jaVisitou, Coordenada coordenadaAtual, int corQueEstamoPintando) {
+        
+        Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
+        
+        for (Coordenada vizinho : vizinhos) {
+            if (deveProcessarVizinho(vizinho, jaVisitou, corQueEstamoPintando)) {
+                fila.insereNaFila(vizinho);
+                marcarComoVisitado(jaVisitou, vizinho);
+            }
+        }
+    }
+
+    // Metodos auxiliares gerais
+    private boolean coordenadaEhValida(Coordenada coord) {
+        return grid.isCoordenadasValidas(coord);
+    }
+
+    private boolean[][] criarMatrizDeVisitados() {
+        return new boolean[grid.getLargura()][grid.getAltura()];
+    }
+
+    private void marcarComoVisitado(boolean[][] jaVisitou, Coordenada coord) {
+        jaVisitou[coord.getX()][coord.getY()] = true;
+    }
+
+    private boolean jaFoiVisitado(boolean[][] jaVisitou, Coordenada coord) {
+        return jaVisitou[coord.getX()][coord.getY()];
+    }
+
+    private void pintarPixel(Coordenada coord, int novaCor) {
+        grid.setPixel(coord, novaCor);
+    }
+
+    private boolean pixelTemCorOriginal(Coordenada coord, int corOriginal) {
+        return grid.getPixel(coord) == corOriginal;
+    }
+
+    private boolean deveProcessarVizinho(Coordenada vizinho, boolean[][] jaVisitou, int corOriginal) {
+        return coordenadaEhValida(vizinho) && 
+               !jaFoiVisitado(jaVisitou, vizinho) && 
+               pixelTemCorOriginal(vizinho, corOriginal);
+    }
+
+    // Logs
+    private void exibirInfoInicio(String tipoEstrutura, Coordenada pontoInicial, 
+                                 int corOriginal, int novaCor) {
+        System.out.println("\n=== INICIANDO FLOOD FILL COM " + tipoEstrutura + " ===");
+        System.out.println("Ponto inicial: " + pontoInicial);
+        System.out.println("Cor original: " + corOriginal);
+        System.out.println("Nova cor: " + novaCor);
+        System.out.println("Pintando...\n");
+    }
+
+    private void mostrarProgresso(int pixelsPintados) {
+        if (pixelsPintados % 2000 == 0) {
+            System.out.println("Progresso: " + pixelsPintados + " pixels pintados");
+        }
+    }
+
+    private void exibirResultados(String tipoEstrutura, int totalPixels, long tempoInicio) {
+        long tempoTotal = System.currentTimeMillis() - tempoInicio;
+        System.out.println("\n=== RESULTADO " + tipoEstrutura + " ===");
+        System.out.println("Total de pixels pintados: " + totalPixels);
+        System.out.println("Tempo de execução: " + tempoTotal + "ms");
+        System.out.println("Pintura concluída!\n");
     }
 }
