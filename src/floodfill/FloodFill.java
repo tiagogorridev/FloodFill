@@ -1,10 +1,10 @@
 package floodfill;
-import estruturas.Queue;
 import grid.Grid;
 import coordenadas.Coordenada;
 import exception.PintarImagemException;
 import pilha.Pilha;
 import fila.Fila;
+import fila.Queue;
 
 public class FloodFill {
 

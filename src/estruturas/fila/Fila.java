@@ -15,83 +15,56 @@ public class Fila {
     }
 
     public void insereNaFila(Object item) {
-
-        // Cria um novo node
         QueueNode newNode = new QueueNode(item);
 
-        if (rear == null) {
-            
-            // Se a fila ainda não tem nada, ela é o único elemento
-            rear = newNode;
-            front = rear;
-            return; //finaliza a execução do método
-
+        if (rear == null) { 
+            rear = newNode;   // o novo nó é o rear
+            front = rear;     // e também é o front
+            return;
         }
 
-        // Cria mais um node na fila, sendo esse o último node
-        rear.setNode(newNode); 
-        rear = newNode;
-
+        rear.setNode(newNode); // Conecta o nó atual ao próximo
+        rear = newNode;        // Atualiza rear para o novo nó
     }
 
     public Object removeElementoDaFila() {
-        
         if (isEmpty()) {
-
-            // Se tiver vazia, não tem o que tirar
             throw new RuntimeException("Fila vazia");
-        
         }
 
-        Object item = front.getValor(); // pega o valor pra retornar depois, enquanto isso, tira o node da fila
-
-        front = front.getNode(); // o front vira o próprio node
+        Object item = front.getValor();    // Guarda o valor do front
+        front = front.getNode();           // Avança o front para o próximo nó
 
         if (front == null) {
-            
-            // se o front não tinha próximo, a fila fica vazia
-            rear = null;
-
+            rear = null; // Se a fila ficou vazia, rear também é null
         }
-        
-        return item;
 
+        return item;
     }
 
     public Object pegaValorSemRemover() {
-
         if (isEmpty()) {
-
-            // se tiver vazia, não tem o que exibir
             throw new RuntimeException("Fila vazia");
-
         }
-
         return front.getValor();
-
     }
 
+    // Imprimir a fila
     @Override
     public String toString() {
-
         StringBuffer sb = new StringBuffer("Fila: ");
-
         QueueNode current = front;
-        
-        // Adiciona " <- " + "{proximo}" no sb
+
         while (current != null) {
-        
             sb.append(current.getValor());
-            
+
             if (current.getNode() != null) 
-                sb.append(" <- ");
+                sb.append(" <- "); // seta visual entre os nós
 
             current = current.getNode();
-        
         }
-        
+
         return sb.toString();
-    
     }
 
 }

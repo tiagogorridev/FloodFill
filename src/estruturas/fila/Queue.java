@@ -1,4 +1,4 @@
-package estruturas;
+package fila;
 
 public class Queue<T> {
     private final T[] queue;
@@ -17,16 +17,16 @@ public class Queue<T> {
         if (size == capacity) throw new IndexOutOfBoundsException("Fila está cheia");
 
         queue[rear] = newItem;
-        rear = (rear + 1) % capacity;
+        rear = (rear + 1) % capacity; // fila circular
         size++;
     }
 
     public T pop() {
         if (size == 0) throw new NegativeArraySizeException("Fila está vazia");
 
-        T temp = queue[front];
+        T temp = queue[front]; // Guarda o elemento do início da fila
         queue[front] = null;
-        front = (front + 1) % capacity;
+        front = (front + 1) % capacity;  // fila circular
         size--;
 
         return temp;

@@ -8,13 +8,10 @@ import floodfill.FloodFill;
 public class Main {
     // INSIRA O CAMINHO DA IMAGEM AQUI
     private static final String IMAGE_PATH = "src/assets/image.png";
-
     private static final String IMAGE_PATH_PAINTED_LIST = "src/assets/resultado_fila.png";
-
     private static final String IMAGE_PATH_PAINTED_STACK = "src/assets/resultado_pilha.png";
     
     public static void main(String[] args) {
-
         System.out.println("Iniciando pintura do arquivo em: " + IMAGE_PATH);
         
         // Mostrar imagem original
@@ -36,7 +33,7 @@ public class Main {
         
         pintarComPilha(grid, floodFill, coordenadas);
 
-      // Recarrega grid para teste com fila
+        // Recarrega grid para teste com fila
         grid = gerarGrid();
         floodFill = new FloodFill(grid);
         
@@ -46,31 +43,20 @@ public class Main {
     }
     
     private static Grid gerarGrid() {
-        
         try {
-
             Grid novoGrid = new Grid(IMAGE_PATH);
-            
             System.out.println("Grid criado com sucesso: " + novoGrid);
-
             return novoGrid;
-
         } catch (Exception e) {
-
             System.err.println("Erro ao gerar grid: " + e.getMessage());
-            
             // e.printStackTrace();
-
             throw new GridException("Falha na criação do grid. erro: " + e.getMessage());
-        
         }
     }
 
-    private static void pintarComPilha(Grid grid, FloodFill floodFill, Coordenada pontoInicial){
-
+    private static void pintarComPilha(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {
         // Teste com PILHA - pinta de vermelho
         System.out.println();
-
         System.out.println("Realizando pintura com estrutura de dados Pilha (Vermelho)");
 
         floodFill.floodFillComPilha(pontoInicial, Grid.getCor(CoresEnum.VERMELHO));
@@ -82,11 +68,9 @@ public class Main {
         ImageUtil.showImage(IMAGE_PATH_PAINTED_STACK);
 
         System.out.println("Imagem pintada com sucesso!");
-        
     }
 
-    private static void pintarComFila(Grid grid, FloodFill floodFill, Coordenada pontoInicial){
-
+    private static void pintarComFila(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {
         // Teste com FILA - pinta de azul  
         System.out.println();
         System.out.println("Executando a pintura da imagem com estrutura de dados Fila (Azul)");
@@ -100,30 +84,5 @@ public class Main {
         ImageUtil.showImage(IMAGE_PATH_PAINTED_LIST);
         
         System.out.println("Imagem pintada com sucesso!");
-        
     }
-
-        // Teste com FILA - pinta de azul  
-        System.out.println("\n--- TESTE COM FILA (AZUL) ---");
-        floodFill.floodFillComQueue(pontoInicial, Grid.Cores.AZUL);
-        grid.salvarImagem("resultado_fila.png");
-        System.out.println("Imagem salva: resultado_fila.png");
-        ImageUtil.showImage("resultado_fila.png");
-        
-        System.out.println("\n=== TESTE FINALIZADO ===");
-        System.out.println("Compare os resultados!");
-    }
-    
-    private static Grid gerarGrid() {
-        try {
-            Grid novoGrid = new Grid(IMAGE_PATH);
-            System.out.println("Grid gerado com sucesso: " + 
-                             novoGrid.getLargura() + "x" + novoGrid.getAltura());
-            return novoGrid;
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar grid: " + e.getMessage());
-            throw new RuntimeException("Falha na criação do grid", e);
-        }
-    }
-
 }
