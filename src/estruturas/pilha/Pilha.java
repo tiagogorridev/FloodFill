@@ -5,11 +5,8 @@ public class Pilha {
     private StackNode topo;
     private int tamanho;
 
-    public Pilha(){
-
+    public Pilha() {
         this.tamanho = 0;
-        this.topo = null;
-
     }
 
     public boolean isEmpty() {

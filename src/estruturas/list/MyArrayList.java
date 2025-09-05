@@ -2,9 +2,7 @@ package list;
 
 public class MyArrayList<T> {
     
-    // Criei ela para um tipo especificado para fazer as implementações futuras assim como estou acostumado
     private Object[] meuArray;
-
     private int tamanho;
     private int capacidade;
 
@@ -24,7 +22,6 @@ public class MyArrayList<T> {
     }
 
     public void add(int index, T e) {
-
         confereIndiceParaAdicionar(index);
         validaCapacidade(tamanho + 1);
     
@@ -34,55 +31,42 @@ public class MyArrayList<T> {
             meuArray[i] = meuArray[i - 1];
         }
     
-        // Insere o novo elemento na posição desejada
-        meuArray[index] = e;
-    
-        // Atualiza o tamanho da lista
+        meuArray[index] = e; // Insere o novo elemento na posição desejada
         tamanho++;
-
     }
 
     public void remove(int index) {
-        
         confereIndice(index);
     
-        // Calcula quantos elementos precisam ser movidos
-        int numMoved = tamanho - index - 1;
+        int numMoved = tamanho - index - 1; // Calcula quantos elementos precisam ser movidos
     
         // Se houver elementos após o índice, move-os para preencher o espaço
         if (numMoved > 0) {
-
             // Copia os elementos do array, começando do índice + 1 para o índice atual
             for (int i = index; i < tamanho - 1; i++) {
                 meuArray[i] = meuArray[i + 1];
             }
-        
         }
     
-        // Remove a referência ao último elemento e diminui o tamanho
-        tamanho -= 1;
-
+        tamanho -= 1; // Remove a referência ao último elemento e diminui o tamanho
         meuArray[tamanho] = null;
-
     }
 
     public void remove(Object o) {
-        
         int idx = indexOf(o);
-        
+
         if (idx >= 0) {
-        
             remove(idx);
-        
         }
-        
     }
 
+    // Substituir o elemento
     public void set(int index, T e) {
         confereIndice(index);
         meuArray[index] = e;
     }
 
+    // Acessar o elemento
     @SuppressWarnings("unchecked")
     public T get(int index) {
         confereIndice(index);
@@ -90,65 +74,41 @@ public class MyArrayList<T> {
     }
 
     public boolean contains(Object objeto) {
-
         if (objeto == null) {
-    
             for (int i = 0; i < tamanho; i++){
-
                 if (meuArray[i] == null) return true;
-            
             }
-
         } else {
-            
             for (int i = 0; i < tamanho; i++){
-
                 if (objeto.equals(meuArray[i])) return true;
-
             }
-
         }
 
         return false;
-    
     }
 
     public int indexOf(Object objeto) {
-
         if (objeto == null) {
-    
             for (int i = 0; i < tamanho; i++){
-
                 if (meuArray[i] == null) return i;
-            
             }
-
         } else {
-            
             for (int i = 0; i < tamanho; i++){
-
                 if (objeto.equals(meuArray[i])) return i;
-
             }
-
         }
 
         return -1;
-
     }
 
     public Object[] getArray() {
-
         Object[] novoArray = new Object[tamanho];
         
         for (int i = 0; i < novoArray.length; i++) {
-        
             novoArray[i] = meuArray[i];
-        
         }
         
         return novoArray;
-
     }
 
     public int size() {
@@ -156,9 +116,7 @@ public class MyArrayList<T> {
     }
 
     private void validaCapacidade(int capacidadeMinima) {
-
         if (capacidadeMinima > capacidade) {
-        
             int novaCapacidade = Math.max(capacidade * 2, capacidadeMinima);
             Object[] novoArray = new Object[novaCapacidade];
             System.arraycopy(meuArray, 0, novoArray, 0, tamanho);
@@ -167,7 +125,6 @@ public class MyArrayList<T> {
             capacidade = novaCapacidade;
         
         }
-    
     }
 
     private void confereIndice(int index) {

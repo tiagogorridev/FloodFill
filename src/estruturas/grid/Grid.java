@@ -23,7 +23,6 @@ public class Grid {
             BufferedImage imagemOriginal = ImageIO.read(new File(caminhoImagem));
             largura = imagemOriginal.getWidth();
             altura = imagemOriginal.getHeight();
-            
             pixels = new int[largura][altura];
             
             // Copia todos os pixels da imagem para a matriz
@@ -92,16 +91,9 @@ public class Grid {
         return altura;
     }
     
-    // Cria valor RGB a partir de componentes vermelho, verde e azul
-    private static int criarRGB(int r, int g, int b) {
-        return (0xFF << 24) | (r << 16) | (g << 8) | b;
-    }
-
-    public static int getCor(CoresEnum cor){
-
-        // Cria a cor baseada no enum de cores já predefinidas
-        return criarRGB(cor.getR(), cor.getG(), cor.getB());
-
+    // Método simplificado - usa o toRGB() da enum diretamente
+    public static int getCor(CoresEnum cor) {
+        return (0xFF << 24) | cor.toRGB();
     }
     
     // Representação textual do grid
