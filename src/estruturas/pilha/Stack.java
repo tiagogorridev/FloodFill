@@ -26,4 +26,9 @@ public class Stack<T> {
         elements[top--] = null;
         return element;
     }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
 }

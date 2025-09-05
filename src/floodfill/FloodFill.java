@@ -1,4 +1,5 @@
 package floodfill;
+import estruturas.pilha.Stack;
 import grid.Grid;
 import coordenadas.Coordenada;
 import pilha.Pilha;
@@ -50,6 +51,51 @@ public class FloodFill {
             adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
         }
         
+        exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
+    }
+
+    public void pintarComStack(Coordenada pontoInicial, int novaCor) {
+        if (!coordenadaEhValida(pontoInicial)) {
+            System.out.println("Coordenada inválida: " + pontoInicial);
+            return;
+        }
+
+        int corOriginal = grid.getPixel(pontoInicial);
+        if (corOriginal == novaCor) {
+            System.out.println("Pixel já tem a cor desejada");
+            return;
+        }
+
+        // Iniciar processo
+        boolean[][] jaVisitou = criarMatrizDeVisitados();
+        Stack<Coordenada> pilhaDeCoordenas = new Stack<>(grid.getLargura() * grid.getLargura());
+
+        pilhaDeCoordenas.push(pontoInicial);
+        marcarComoVisitado(jaVisitou, pontoInicial);
+
+        exibirInfoInicio("PILHA", pontoInicial, corOriginal, novaCor);
+
+        int totalPixelsPintados = 0;
+        long tempoInicio = System.currentTimeMillis();
+
+        while (!pilhaDeCoordenas.isEmpty()) {
+            Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
+
+            pintarPixel(coordenadaAtual, novaCor);
+            totalPixelsPintados++;
+
+            mostrarProgresso(totalPixelsPintados);
+
+            Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
+
+            for (Coordenada vizinho : vizinhos) {
+                if (deveProcessarVizinho(vizinho, jaVisitou, corOriginal)) {
+                    pilhaDeCoordenas.push(vizinho);
+                    marcarComoVisitado(jaVisitou, vizinho);
+                }
+            }
+        }
+
         exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
     }
 
