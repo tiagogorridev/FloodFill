@@ -13,14 +13,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Iniciando pintura do arquivo em: " + IMAGE_PATH);
         
-        ImageUtil.showImage(IMAGE_PATH);
+        //ImageUtil.showImage(IMAGE_PATH);
         
         Grid grid = gerarGrid();
         System.out.println("Grid: " + grid);
 
         FloodFill floodFill = new FloodFill(grid);
         
-        Coordenada coordenadas = new Coordenada(400, 600);
+        Coordenada coordenadas = new Coordenada(400, 400);
         System.out.println("Iniciando pintura na coordenada " + coordenadas);
         
         int corInicial = grid.getPixel(coordenadas);
@@ -29,10 +29,10 @@ public class Main {
         pintarComPilha(grid, floodFill, coordenadas);
 
         // Recarrega grid para fila
-        grid = gerarGrid();
+        /* grid = gerarGrid();
         floodFill = new FloodFill(grid);
         
-        pintarComFila(grid, floodFill, coordenadas);
+        pintarComFila(grid, floodFill, coordenadas); */
     }
     
     private static Grid gerarGrid() {
@@ -50,14 +50,14 @@ public class Main {
         System.out.println();
         System.out.println("Realizando pintura com estrutura de dados Pilha (Amarelo)");
 
-        floodFill.pintarComPilha(pontoInicial, Grid.getCor(CoresEnum.AMARELO));
+        floodFill.pintarComPilha(pontoInicial, Grid.getCor(CoresEnum.AZUL));
 
-        grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
-        System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
+        //grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
+        //System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
 
-        ImageUtil.showImage(IMAGE_PATH_PAINTED_STACK);
+        //ImageUtil.showImage(IMAGE_PATH_PAINTED_STACK);
 
-        System.out.println("Imagem pintada com sucesso!");
+        //System.out.println("Imagem pintada com sucesso!");
     }
 
     private static void pintarComFila(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {

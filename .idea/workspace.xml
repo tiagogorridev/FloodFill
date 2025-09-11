@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="addcb13e-5427-47c5-8a73-60dccef25424" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/estruturas/pilha/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/estruturas/pilha/Stack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FloodFill/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FloodFill/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FloodFill/floodfill/FloodFill.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FloodFill/floodfill/FloodFill.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FloodFill/grid/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FloodFill/grid/Grid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/resultado_fila.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/resultado_fila.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/resultado_pilha.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/resultado_pilha.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/estruturas/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/estruturas/grid/Grid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/floodfill/FloodFill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/floodfill/FloodFill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graph/ImageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/graph/ImageUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
