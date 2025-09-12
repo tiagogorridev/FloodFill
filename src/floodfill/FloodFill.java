@@ -43,38 +43,25 @@ public class FloodFill {
         
         exibirInfoInicio("PILHA", pontoInicial, corOriginal, novaCor);
 
-        new Thread(() -> {
-            int totalPixelsPintados = 0;
-            long tempoInicio = System.currentTimeMillis();
 
-            while (!pilhaDeCoordenas.isEmpty()) {
-                Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
+        int totalPixelsPintados = 0;
+        long tempoInicio = System.currentTimeMillis();
 
-                pintarPixel(coordenadaAtual, novaCor);
-                totalPixelsPintados++;
+        while (!pilhaDeCoordenas.isEmpty()) {
+            Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
 
-                mostrarProgresso(totalPixelsPintados);
+            pintarPixel(coordenadaAtual, novaCor);
+            totalPixelsPintados++;
 
-                adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
+            mostrarProgresso(totalPixelsPintados);
 
-                animationContext.addNewFrame(grid.gerarImagemAtualizada());
-                animationContext.draw();
+            adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
 
-                try { Thread.sleep(0, 10); } catch (Exception e) {
-                    System.out.println("Erro ao esperar tempo para animação");
-                    return;
-                }
+            animationContext.addNewFrame(grid.gerarImagemAtualizada());
+            animationContext.draw();
+        }
 
-
-            }
-
-            exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
-
-            grid.salvarImagem("src/assets/resultado_fila.png");
-            System.out.println("Imagem salva: " + "src/assets/resultado_fila.png");
-
-            System.out.println("Imagem pintada com sucesso!");
-        }).start();
+        exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
     }
 
     public void pintarComStack(Coordenada pontoInicial, int novaCor) {
@@ -124,6 +111,11 @@ public class FloodFill {
 
     // Pintar com fila
     public void pintarComFila(Coordenada pontoInicial, int novaCor) {
+        ImageUtil animationContext = ImageUtil.setupAnimation(grid.currImagePath);
+        if (animationContext == null) {
+            System.out.println("Erro ao criar contexto de animação");
+            return;
+        }
 
         if (!coordenadaEhValida(pontoInicial)) {
             System.out.println("Coordenada inválida: " + pontoInicial);
@@ -156,6 +148,9 @@ public class FloodFill {
             mostrarProgresso(totalPixelsPintados);
             
             adicionarVizinhosNaFila(filaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
+
+            animationContext.addNewFrame(grid.gerarImagemAtualizada());
+            animationContext.draw();
         }
         
         exibirResultados("FILA", totalPixelsPintados, tempoInicio);
