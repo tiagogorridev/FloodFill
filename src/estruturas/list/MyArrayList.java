@@ -1,5 +1,4 @@
 package list;
-
 public class MyArrayList<T> {
     
     private Object[] meuArray;

@@ -1,5 +1,4 @@
 package fila;
-
 public class Queue<T> {
     private final T[] queue;
     private int front = 0;

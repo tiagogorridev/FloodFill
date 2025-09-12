@@ -1,5 +1,4 @@
 package fila;
-
 public class Fila {
 
     private QueueNode front;

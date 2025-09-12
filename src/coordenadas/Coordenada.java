@@ -1,6 +1,4 @@
 package coordenadas;
-
-// Classe para representar uma coordenada no grid
 public class Coordenada {
     
     private int x;

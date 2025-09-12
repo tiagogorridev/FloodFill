@@ -1,4 +1,3 @@
-import graph.ImageUtil;
 import grid.CoresEnum;
 import grid.Grid;
 import coordenadas.Coordenada;
@@ -12,8 +11,6 @@ public class Main {
     
     public static void main(String[] args) {
         System.out.println("Iniciando pintura do arquivo em: " + IMAGE_PATH);
-        
-        //ImageUtil.showImage(IMAGE_PATH);
         
         Grid grid = gerarGrid();
         System.out.println("Grid: " + grid);
@@ -54,9 +51,6 @@ public class Main {
 
         grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
         System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
-
-        //ImageUtil.showImage(IMAGE_PATH_PAINTED_STACK);
-
         System.out.println("Imagem pintada com sucesso!");
     }
 
@@ -69,9 +63,6 @@ public class Main {
         grid.salvarImagem(IMAGE_PATH_PAINTED_LIST);
         
         System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_LIST);
-        
-        //ImageUtil.showImage(IMAGE_PATH_PAINTED_LIST);
-        
         System.out.println("Imagem pintada com sucesso!");
     }
 

@@ -1,5 +1,4 @@
 package pilha;
-
 public class Pilha {
 
     private StackNode topo;

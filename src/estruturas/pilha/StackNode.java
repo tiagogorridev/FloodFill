@@ -1,5 +1,4 @@
 package pilha;
-
 public class StackNode {
 
     private Object valor;

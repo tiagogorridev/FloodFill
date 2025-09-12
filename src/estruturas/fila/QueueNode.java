@@ -1,5 +1,4 @@
 package fila;
-
 public class QueueNode {
 
     private Object valor;

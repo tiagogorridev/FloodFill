@@ -1,5 +1,6 @@
 package floodfill;
-import estruturas.pilha.Stack;
+
+import pilha.Stack;
 import graph.ImageUtil;
 import grid.Grid;
 import coordenadas.Coordenada;
