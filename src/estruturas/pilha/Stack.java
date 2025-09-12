@@ -1,4 +1,4 @@
-package pilha;
+package estruturas.pilha;
 
 public class Stack<T> {
     private final Object[] elements;
