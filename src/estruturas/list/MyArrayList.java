@@ -15,11 +15,13 @@ public class MyArrayList<T> {
         this.tamanho = 0;
     }
 
+    // adicionar no final
     public void add(T e) {
         validaCapacidade(tamanho + 1);
         meuArray[tamanho++] = e;
     }
 
+    // adicionar em x posicao
     public void add(int index, T e) {
         confereIndiceParaAdicionar(index);
         validaCapacidade(tamanho + 1);

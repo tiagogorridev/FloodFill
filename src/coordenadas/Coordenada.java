@@ -40,15 +40,6 @@ public class Coordenada {
         };
     }
     
-    // Comparação entre coordenadas
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Coordenada that = (Coordenada) obj;
-        return x == that.x && y == that.y;
-    }
-    
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";

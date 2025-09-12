@@ -23,7 +23,7 @@ public class Fila {
         }
 
         rear.setNode(newNode); // Conecta o nó atual ao próximo
-        rear = newNode;        // Atualiza rear para o novo nó
+        rear = newNode;        // Atualiza rear para apontar pro novo nó
     }
 
     public Object removeElementoDaFila() {

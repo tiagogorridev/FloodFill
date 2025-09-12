@@ -15,8 +15,8 @@ public class Queue<T> {
     public void push(T newItem) {
         if (size == capacity) throw new IndexOutOfBoundsException("Fila está cheia");
 
-        queue[rear] = newItem;
-        rear = (rear + 1) % capacity; // fila circular
+        queue[rear] = newItem; // Coloca elemento na posição rear
+        rear = (rear + 1) % capacity; // Move rear para próxima posição (circular)
         size++;
     }
 
