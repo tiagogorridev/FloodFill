@@ -68,6 +68,7 @@ public class Main {
     }
 
     private static void pintarComFila(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {
+
         System.out.println();
         System.out.println("Executando a pintura da imagem com estrutura de dados Fila (Verde)");
 
@@ -77,6 +78,7 @@ public class Main {
         
         System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_LIST);
         System.out.println("Imagem pintada com sucesso!");
+    
     }
 
 }
