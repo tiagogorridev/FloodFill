@@ -28,11 +28,11 @@ public class Main {
         
         pintarComPilha(grid, floodFill, coordenadas);
 
-        // Recarrega grid para fila
-        /* grid = gerarGrid();
+        //Recarrega grid para fila
+        grid = gerarGrid();
         floodFill = new FloodFill(grid);
         
-        pintarComFila(grid, floodFill, coordenadas); */
+        pintarComFila(grid, floodFill, coordenadas);
     }
     
     private static Grid gerarGrid() {
@@ -48,29 +48,29 @@ public class Main {
 
     private static void pintarComPilha(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {
         System.out.println();
-        System.out.println("Realizando pintura com estrutura de dados Pilha (Amarelo)");
+        System.out.println("Realizando pintura com estrutura de dados Pilha (Azul)");
 
         floodFill.pintarComPilha(pontoInicial, Grid.getCor(CoresEnum.AZUL));
 
-        //grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
-        //System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
+        grid.salvarImagem(IMAGE_PATH_PAINTED_STACK);
+        System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_STACK);
 
         //ImageUtil.showImage(IMAGE_PATH_PAINTED_STACK);
 
-        //System.out.println("Imagem pintada com sucesso!");
+        System.out.println("Imagem pintada com sucesso!");
     }
 
     private static void pintarComFila(Grid grid, FloodFill floodFill, Coordenada pontoInicial) {
         System.out.println();
-        System.out.println("Executando a pintura da imagem com estrutura de dados Fila (Azul)");
+        System.out.println("Executando a pintura da imagem com estrutura de dados Fila (Verde)");
 
-        floodFill.pintarComFila(pontoInicial, Grid.getCor(CoresEnum.AZUL));
+        floodFill.pintarComFila(pontoInicial, Grid.getCor(CoresEnum.VERDE));
         
         grid.salvarImagem(IMAGE_PATH_PAINTED_LIST);
         
         System.out.println("Imagem salva: " + IMAGE_PATH_PAINTED_LIST);
         
-        ImageUtil.showImage(IMAGE_PATH_PAINTED_LIST);
+        //ImageUtil.showImage(IMAGE_PATH_PAINTED_LIST);
         
         System.out.println("Imagem pintada com sucesso!");
     }
