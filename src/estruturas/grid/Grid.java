@@ -11,9 +11,11 @@ public class Grid {
     private int[][] pixels;
     private int largura;
     private int altura;
+    public String currImagePath;
     
     // Construtor que cria grid a partir de arquivo de imagem
     public Grid(String caminhoImagem) {
+        this.currImagePath = caminhoImagem;
         carregarImagem(caminhoImagem);
     }
     

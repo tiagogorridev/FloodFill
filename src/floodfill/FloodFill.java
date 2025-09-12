@@ -1,4 +1,6 @@
 package floodfill;
+import estruturas.pilha.Stack;
+import graph.ImageUtil;
 import grid.Grid;
 import coordenadas.Coordenada;
 import pilha.Pilha;
@@ -14,6 +16,11 @@ public class FloodFill {
 
     // Pintar com pilha
     public void pintarComPilha(Coordenada pontoInicial, int novaCor) {
+        ImageUtil animationContext = ImageUtil.setupAnimation(grid.currImagePath);
+        if (animationContext == null) {
+            System.out.println("Erro ao criar contexto de animação");
+            return;
+        }
 
         // Validacoes
         if (!coordenadaEhValida(pontoInicial)) {
@@ -36,20 +43,82 @@ public class FloodFill {
         
         exibirInfoInicio("PILHA", pontoInicial, corOriginal, novaCor);
 
+        new Thread(() -> {
+            int totalPixelsPintados = 0;
+            long tempoInicio = System.currentTimeMillis();
+
+            while (!pilhaDeCoordenas.isEmpty()) {
+                Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
+
+                pintarPixel(coordenadaAtual, novaCor);
+                totalPixelsPintados++;
+
+                mostrarProgresso(totalPixelsPintados);
+
+                adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
+
+                animationContext.addNewFrame(grid.gerarImagemAtualizada());
+                animationContext.draw();
+
+                try { Thread.sleep(0, 10); } catch (Exception e) {
+                    System.out.println("Erro ao esperar tempo para animação");
+                    return;
+                }
+
+
+            }
+
+            exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
+
+            grid.salvarImagem("src/assets/resultado_fila.png");
+            System.out.println("Imagem salva: " + "src/assets/resultado_fila.png");
+
+            System.out.println("Imagem pintada com sucesso!");
+        }).start();
+    }
+
+    public void pintarComStack(Coordenada pontoInicial, int novaCor) {
+        if (!coordenadaEhValida(pontoInicial)) {
+            System.out.println("Coordenada inválida: " + pontoInicial);
+            return;
+        }
+
+        int corOriginal = grid.getPixel(pontoInicial);
+        if (corOriginal == novaCor) {
+            System.out.println("Pixel já tem a cor desejada");
+            return;
+        }
+
+        // Iniciar processo
+        boolean[][] jaVisitou = criarMatrizDeVisitados();
+        Stack<Coordenada> pilhaDeCoordenas = new Stack<>(grid.getLargura() * grid.getLargura());
+
+        pilhaDeCoordenas.push(pontoInicial);
+        marcarComoVisitado(jaVisitou, pontoInicial);
+
+        exibirInfoInicio("PILHA", pontoInicial, corOriginal, novaCor);
+
         int totalPixelsPintados = 0;
         long tempoInicio = System.currentTimeMillis();
-        
+
         while (!pilhaDeCoordenas.isEmpty()) {
             Coordenada coordenadaAtual = (Coordenada) pilhaDeCoordenas.pop();
-            
+
             pintarPixel(coordenadaAtual, novaCor);
             totalPixelsPintados++;
-            
+
             mostrarProgresso(totalPixelsPintados);
-            
-            adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
+
+            Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
+
+            for (Coordenada vizinho : vizinhos) {
+                if (deveProcessarVizinho(vizinho, jaVisitou, corOriginal)) {
+                    pilhaDeCoordenas.push(vizinho);
+                    marcarComoVisitado(jaVisitou, vizinho);
+                }
+            }
         }
-        
+
         exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
     }
 
