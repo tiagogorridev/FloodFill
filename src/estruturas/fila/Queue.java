@@ -1,4 +1,5 @@
 package fila;
+
 public class Queue<T> {
     private final T[] queue;
     private int front = 0;
@@ -33,5 +34,9 @@ public class Queue<T> {
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public int getQueueSize(){
+        return this.size;
     }
 }

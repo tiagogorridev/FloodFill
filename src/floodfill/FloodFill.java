@@ -2,9 +2,10 @@ package floodfill;
 
 import graph.ImageUtil;
 import grid.Grid;
+
 import coordenadas.Coordenada;
-import pilha.Pilha;
-import fila.Fila;
+import fila.Queue;
+import pilha.Stack;
 
 public class FloodFill {
 
@@ -16,8 +17,9 @@ public class FloodFill {
 
     // Pintar com pilha
     public void pintarComPilha(Coordenada pontoInicial, int novaCor) {
-        ImageUtil animationContext = ImageUtil.setupAnimation(grid.currImagePath);
-        if (animationContext == null) {
+
+        ImageUtil imageUtil = ImageUtil.setupAnimation(grid.currImagePath);
+        if (imageUtil == null) {
             System.out.println("Erro ao criar contexto de animação");
             return;
         }
@@ -36,7 +38,7 @@ public class FloodFill {
 
         // Iniciar processo
         boolean[][] jaVisitou = criarMatrizDeVisitados();
-        Pilha pilhaDeCoordenas = new Pilha();
+        Stack<Coordenada> pilhaDeCoordenas = new Stack<>(grid.getAltura()*grid.getLargura());
         
         pilhaDeCoordenas.push(pontoInicial);
         marcarComoVisitado(jaVisitou, pontoInicial);
@@ -56,8 +58,8 @@ public class FloodFill {
 
             adicionarVizinhosNaPilha(pilhaDeCoordenas, jaVisitou, coordenadaAtual, corOriginal);
 
-            animationContext.addNewFrame(grid.gerarImagemAtualizada());
-            animationContext.draw();
+            imageUtil.addNewFrame(grid.gerarImagemAtualizada());
+            imageUtil.draw();
         }
 
         exibirResultados("PILHA", totalPixelsPintados, tempoInicio);
@@ -83,9 +85,9 @@ public class FloodFill {
         }
 
         boolean[][] jaVisitou = criarMatrizDeVisitados();
-        Fila filaDeCoordenas = new Fila();
+        Queue<Coordenada> filaDeCoordenas = new Queue<>(grid.getAltura()*grid.getLargura());
         
-        filaDeCoordenas.insereNaFila(pontoInicial);
+        filaDeCoordenas.push(pontoInicial);
         marcarComoVisitado(jaVisitou, pontoInicial);
         
         exibirInfoInicio("FILA", pontoInicial, corOriginal, novaCor);
@@ -94,7 +96,7 @@ public class FloodFill {
         long tempoInicio = System.currentTimeMillis();
         
         while (!filaDeCoordenas.isEmpty()) {
-            Coordenada coordenadaAtual = (Coordenada) filaDeCoordenas.removeElementoDaFila();
+            Coordenada coordenadaAtual = (Coordenada) filaDeCoordenas.pop();
             
             pintarPixel(coordenadaAtual, novaCor);
             totalPixelsPintados++;
@@ -111,7 +113,7 @@ public class FloodFill {
     }
 
     // Metodos auxiliares pilha
-    private void adicionarVizinhosNaPilha(Pilha pilha, boolean[][] jaVisitou, 
+    private void adicionarVizinhosNaPilha(Stack<Coordenada> pilha, boolean[][] jaVisitou, 
                                          Coordenada coordenadaAtual, int corQueEstamoPintando) {
         
         Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
@@ -125,13 +127,13 @@ public class FloodFill {
     }
 
     // Metodos auxiliares fila
-    private void adicionarVizinhosNaFila(Fila fila, boolean[][] jaVisitou, Coordenada coordenadaAtual, int corQueEstamoPintando) {
+    private void adicionarVizinhosNaFila(Queue<Coordenada> fila, boolean[][] jaVisitou, Coordenada coordenadaAtual, int corQueEstamoPintando) {
         
         Coordenada[] vizinhos = coordenadaAtual.getVizinhos();
         
         for (Coordenada vizinho : vizinhos) {
             if (deveProcessarVizinho(vizinho, jaVisitou, corQueEstamoPintando)) {
-                fila.insereNaFila(vizinho);
+                fila.push(vizinho);
                 marcarComoVisitado(jaVisitou, vizinho);
             }
         }

@@ -9,12 +9,11 @@ import javax.imageio.ImageIO;
 
 
 public class ImageUtil {
+
     private fila.Queue<BufferedImage> frames;
-    private JFrame currFrame;
+    // private JFrame currFrame;
     private JPanel currPanel;
     private BufferedImage currImage;
-
-    private ImageUtil() { }
 
     public static ImageUtil setupAnimation(String imagePath)  {
 
@@ -42,6 +41,7 @@ public class ImageUtil {
                 // calcula tamanho da janela
                 @Override
                 public Dimension getPreferredSize() { return new Dimension(img.getWidth(), img.getHeight()); }
+                
             };
 
             // monta a interface
@@ -51,7 +51,7 @@ public class ImageUtil {
             frame.setVisible(true);
 
             // salva as referencias
-            animationContext.currFrame = frame;
+            // animationContext.currFrame = frame;
             animationContext.currPanel = panel;
 
             return animationContext;
