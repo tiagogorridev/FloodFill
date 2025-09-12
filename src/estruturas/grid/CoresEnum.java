@@ -1,13 +1,12 @@
 package grid;
 
 public enum CoresEnum {
-    // Cores predefinidas para uso no flood fill
-    BRANCO(255, 255, 255), // FFFFFF
-    AMARELO(255, 255, 0), // FFFF00
-    VERMELHO(255, 0, 0), // FF0000
-    VERDE(0, 255, 0), // 00FF00
-    AZUL(0, 0, 255), // 0000FF
-    PRETO(0, 0, 0); // 000000
+    BRANCO(255, 255, 255),
+    AMARELO(255, 255, 0),
+    VERMELHO(255, 0, 0),
+    VERDE(0, 255, 0),
+    AZUL(0, 0, 255),
+    PRETO(0, 0, 0);
 
     private final int r;
     private final int g;
